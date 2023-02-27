@@ -14,6 +14,8 @@ import java.util.*;
 @Service
 @Transactional(readOnly = true)
 public class PeopleService {
+
+    private final Integer TEN_DAYS = 864000000;
     private final PeopleRepository peopleRepository;
 
     @Autowired
@@ -25,7 +27,7 @@ public class PeopleService {
         return peopleRepository.findAll();
     }
 
-    public Person findOnrById(int id) {
+    public Person findOneById(int id) {
         return peopleRepository.findById(id).orElse(null);
     }
 
@@ -58,7 +60,7 @@ public class PeopleService {
             person.get().getBooks().forEach(book ->
             {
                 long diffInMillies = Math.abs(book.getTakenAt().getTime() - new Date().getTime());
-                if (diffInMillies > 864000000)
+                if (diffInMillies > TEN_DAYS)
                     book.setExpired(true);
             });
             return person.get().getBooks();

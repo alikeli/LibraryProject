@@ -33,7 +33,8 @@ public class BookService {
     public List<Book> findWithPagination(Integer page, Integer booksPerPage, boolean sortByYear) {
         if (sortByYear)
             return bookRepository.findAll(PageRequest.of(page, booksPerPage, Sort.by("year"))).getContent();
-        else return bookRepository.findAll(PageRequest.of(page, booksPerPage)).getContent();
+        else
+            return bookRepository.findAll(PageRequest.of(page, booksPerPage)).getContent();
     }
 
     public Book findOne(int id) {
@@ -55,8 +56,6 @@ public class BookService {
     public void update(int id, Book updateBook) {
         Book bookToUpdate = bookRepository.findById(id).get();
 
-        updateBook.setId(id);
-        updateBook.setOwner(bookToUpdate.getOwner());
         updateBook.setId(id);
         updateBook.setOwner(bookToUpdate.getOwner());
 
